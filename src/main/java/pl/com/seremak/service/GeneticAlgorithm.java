@@ -1,6 +1,6 @@
 package pl.com.seremak.service;
 
-import io.vavr.collection.List;
+import io.vavr.collection.Array;
 import jakarta.inject.Singleton;
 import lombok.extern.slf4j.Slf4j;
 import pl.com.seremak.LocationReader.LocationReader;
@@ -10,7 +10,7 @@ import pl.com.seremak.model.Location;
 @Slf4j
 public class GeneticAlgorithm {
 
-    private List<Location> locations;
+    private Array<Location> locations;
 
     public void setup(final String inputFilePath) {
         locations = LocationReader.readLocation(inputFilePath);
