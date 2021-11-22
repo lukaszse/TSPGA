@@ -2,6 +2,7 @@ package pl.com.seremak.service
 
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
+import pl.com.seremak.model.Population
 import pl.com.seremak.model.Route
 import spock.lang.Specification
 
@@ -13,16 +14,25 @@ class InterbreedingTest extends Specification {
     @Inject
     Interbreeding interbreeding;
 
-    def 'should interbreed routes' () {
-
-        given:
-        def parentRoute1 = prepareRoute1()
-        def parentRoute2 = prepareRoute2()
+    def 'should generate a child routes' () {
 
         when:
-        def childRoute = interbreeding.interbreed(parentRoute1, parentRoute2)
+        def childRoute = interbreeding.generateSingleChild(prepareRoute1(), prepareRoute2())
 
         then:
         childRoute instanceof Route
+        childRoute.getLocations().length() == 4;
+    }
+
+    def 'should perform interbreeding for given population' () {
+
+        given:
+        def population = Population.of(prepareRoute1(), 10);
+
+        when:
+        def children = interbreeding.performInterbreeding(population)
+
+        then:
+        children instanceof Population
     }
 }
