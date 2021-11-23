@@ -26,4 +26,9 @@ public class Route {
         var length = RouteLengthCalculator.calculateRouteLength(locations);
         return new Route(locations, length);
     }
+
+    public Route(final Route route) {
+        this.locations = route.locations;
+        this.routeLength = route.routeLength;
+    }
 }

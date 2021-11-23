@@ -12,7 +12,7 @@ import static pl.com.seremak.TestData.*
 class InterbreedingTest extends Specification {
 
     @Inject
-    Interbreeding interbreeding;
+    Interbreeding interbreeding
 
     def 'should generate a child routes' () {
 
@@ -21,18 +21,19 @@ class InterbreedingTest extends Specification {
 
         then:
         childRoute instanceof Route
-        childRoute.getLocations().length() == 4;
+        childRoute.getLocations().length() == 4
     }
 
     def 'should perform interbreeding for given population' () {
 
         given:
-        def population = Population.of(prepareRoute1(), 10);
+        def population = Population.of(prepareRoute1(), 10)
 
         when:
         def children = interbreeding.performInterbreeding(population)
 
         then:
         children instanceof Population
+        children.getRoutes().length() == 10
     }
 }
