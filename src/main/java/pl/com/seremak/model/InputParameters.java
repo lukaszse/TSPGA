@@ -12,4 +12,5 @@ public class InputParameters {
     private final int individualsNumber;
     private final double interbreedingProbability;
     private final double mutationProbability;
+    private final double eliteSelectionFactor;
 }
