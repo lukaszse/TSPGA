@@ -1,6 +1,7 @@
 package pl.com.seremak
 
 import io.vavr.collection.Array
+import pl.com.seremak.model.InputParameters
 import pl.com.seremak.model.Location
 import pl.com.seremak.model.Route
 
@@ -31,4 +32,13 @@ class TestData {
         new Location(4, 4, 4)
     }
 
+    static def inputParams() {
+        InputParameters.builder()
+                .individualsNumber(10)
+                .populationsNumber(10)
+                .mutationProbability(0.1)
+                .interbreedingProbability(0.3)
+                .eliteSelectionFactor(0.2)
+                .build()
+    }
 }

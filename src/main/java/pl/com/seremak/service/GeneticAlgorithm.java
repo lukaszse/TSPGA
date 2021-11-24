@@ -1,6 +1,7 @@
 package pl.com.seremak.service;
 
 import io.vavr.collection.Array;
+import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import jakarta.inject.Singleton;
 import lombok.Data;
@@ -11,7 +12,9 @@ import pl.com.seremak.model.InputParameters;
 import pl.com.seremak.model.Population;
 import pl.com.seremak.model.Route;
 
+import java.time.Instant;
 import java.util.Comparator;
+import java.util.concurrent.TimeUnit;
 
 @Singleton
 @Slf4j
@@ -29,10 +32,35 @@ public class GeneticAlgorithm {
         setup(params);
         locations = Route.of(LocationReader.readLocation(inputFilePath));
         var population = Population.of(locations, params.getIndividualsNumber());
+//        var lastPopulation = generatePopulation(population, 300);
         var lastPopulation = getLastGeneration(population);
         var shortestRoute = getShortestRoute(lastPopulation);
         log.info("Shortest route has length={}", shortestRoute.getRouteLength());
         log.info("Shortest route {}", shortestRoute);
+    }
+
+    private Population generatePopulation(final Population population, final int seconds) {
+        long startTime = Instant.now().toEpochMilli();
+        long epochEndTime = Instant.now().toEpochMilli() + TimeUnit.SECONDS.toMillis(seconds);;
+        Population temp = population;
+        while(Instant.now().toEpochMilli() <= epochEndTime) {
+            temp = createNextGeneration(temp);
+            long duration = Instant.now().toEpochMilli() - startTime;
+            if(duration % 5000 > 0 && duration % 5000 < 10) {
+                Comparator<Route> compareByLength = Comparator.comparing(Route::getRouteLength);
+                var bestRouteLength = temp.getRoutes()
+                        .minBy(compareByLength)
+                        .get()
+                        .getRouteLength();
+                var routes = temp.getRoutes()
+                        .map(Route::getRouteLength)
+                        .collect(List.collector());
+                log.info("Duration {} seconds", duration/1000);
+                log.info("Best route: {}", bestRouteLength);
+                log.info("All routes: {}", routes);
+            }
+        }
+        return temp;
     }
 
     private Population getLastGeneration(final Population population) {
