@@ -34,11 +34,11 @@ class TestData {
 
     static def inputParams() {
         InputParameters.builder()
-                .individualsNumber(10)
-                .populationsNumber(10)
+                .individualsNumber(100)
+                .populationsNumber(100)
                 .mutationProbability(0.1)
                 .interbreedingProbability(0.3)
-                .eliteSelectionFactor(0.2)
+                .eliteSelectionFactor(0.05)
                 .build()
     }
 }

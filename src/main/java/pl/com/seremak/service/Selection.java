@@ -36,7 +36,7 @@ public class Selection {
         int eliteSize = (int) (routes.length() * eliteSelectionFactor);
         return routes
                 .sorted(compareByLength)
-                .takeRight(eliteSize);
+                .take(eliteSize);
     }
 
     private Array<Route> populateElite(final Array<Route> elite, final int missingIndividualsNumber) {
