@@ -14,17 +14,5 @@ import java.io.PrintStream
 class TSPGACommandSpec extends Specification {
 
     @Shared @AutoCleanup ApplicationContext ctx = ApplicationContext.run(Environment.CLI, Environment.TEST)
-
-    void "test TSPGA with command line option"() {
-        given:
-        ByteArrayOutputStream baos = new ByteArrayOutputStream()
-        System.setOut(new PrintStream(baos))
-
-        String[] args = ['-v'] as String[]
-        PicocliRunner.run(TSPGACommand, ctx, args)
-
-        expect:
-        baos.toString().contains('Hi!')
-    }
 }
 

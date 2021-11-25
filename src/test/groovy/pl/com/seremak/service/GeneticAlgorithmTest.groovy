@@ -30,7 +30,7 @@ class GeneticAlgorithmTest extends Specification {
         def population = Population.of(prepareRoute2(), 100)
 
         when:
-        def children = geneticAlgorithm.getLastGeneration(population)
+        def children = geneticAlgorithm.getLastPopulation(population)
 
         then:
         children instanceof Population

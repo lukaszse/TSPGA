@@ -6,28 +6,27 @@ import io.micronaut.context.ApplicationContext;
 import jakarta.inject.Inject;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
+import picocli.CommandLine.MissingParameterException;
+import picocli.CommandLine.Model.ArgSpec;
 import picocli.CommandLine.Option;
 import picocli.CommandLine.Parameters;
 import pl.com.seremak.model.InputParameters;
 import pl.com.seremak.service.GeneticAlgorithm;
 
-@Command(name = "TSPGA", description = "...",
+@Command(name = "TSPGA", description = "Traveling Salesman Problem Genetic Algorithm",
         mixinStandardHelpOptions = true)
 public class TSPGACommand implements Runnable {
 
     @Inject
     GeneticAlgorithm geneticAlgorithm;
 
-    @Option(names = {"-i", "--input"}, description = "path of input file")
+    @Option(names = {"-f", "--inputFile"}, description = "path of input file", required = true)
     String inputFilePath;
 
-    @Option(names = {"-n", "--runsNumber"}, description = "Number of program runs", defaultValue = "40")
-    int runsNumber;
+    @Option(names = {"-d", "--duration"}, description = "Duration in seconds", defaultValue = "10")
+    int duration;
 
-    @Option(names = {"-p", "--populations"}, description = "Number of populations (generations)", defaultValue = "10")
-    int populationsNumber;
-
-    @Option(names = {"-r", "--individuals"}, description = "Number of individuals in population (population size)", defaultValue = "10")
+    @Option(names = {"-i", "--individuals"}, description = "Number of individuals in population (population size)", defaultValue = "10")
     int individualsNumber;
 
     @Option(names = {"-t", "--interbreeding"}, description = "Interbreeding probability of individuals", defaultValue = "0.8")
@@ -46,8 +45,7 @@ public class TSPGACommand implements Runnable {
     public void run() {
         geneticAlgorithm.setParams(
                 InputParameters.builder()
-                        .runsNumber(runsNumber)
-                        .populationsNumber(populationsNumber)
+                        .duration(duration)
                         .individualsNumber(individualsNumber)
                         .interbreedingProbability(interbreedingProbability)
                         .mutationProbability(mutationProbability)

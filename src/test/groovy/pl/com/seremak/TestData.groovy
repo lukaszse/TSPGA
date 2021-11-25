@@ -35,7 +35,7 @@ class TestData {
     static def inputParams() {
         InputParameters.builder()
                 .individualsNumber(100)
-                .populationsNumber(100)
+                .duration(100)
                 .mutationProbability(0.1)
                 .interbreedingProbability(0.3)
                 .eliteSelectionFactor(0.05)
