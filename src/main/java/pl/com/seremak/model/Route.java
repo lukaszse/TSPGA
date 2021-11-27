@@ -1,12 +1,11 @@
 package pl.com.seremak.model;
 
 import io.vavr.collection.Array;
-import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.com.seremak.LocationReader.RouteLengthCalculator;
+import pl.com.seremak.locationReader.RouteLengthCalculator;
 
 @Data
 @NoArgsConstructor

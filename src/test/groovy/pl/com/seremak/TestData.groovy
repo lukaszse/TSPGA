@@ -5,6 +5,9 @@ import pl.com.seremak.model.InputParameters
 import pl.com.seremak.model.Location
 import pl.com.seremak.model.Route
 
+import java.util.stream.Collectors
+import java.util.stream.IntStream
+
 class TestData {
 
 
@@ -32,13 +35,21 @@ class TestData {
         new Location(4, 4, 4)
     }
 
-    static def inputParams() {
+    static def prepareRoute(Integer locationsNumber) {
+        List<Location> locations = new ArrayList<>()
+        for (i in 1.. locationsNumber) {
+            locations.add(new Location(i, i, i))
+        }
+        return Route.of(Array.ofAll(locations) as Array<Location>)
+    }
+
+    static def inputParams(int duration) {
         InputParameters.builder()
                 .individualsNumber(100)
-                .duration(100)
-                .mutationProbability(0.1)
+                .duration(duration)
+                .mutationProbability(0.02)
                 .interbreedingProbability(0.3)
-                .eliteSelectionFactor(0.05)
+                .eliteSelectionFactor(0.02)
                 .build()
     }
 }

@@ -1,4 +1,4 @@
-package pl.com.seremak.LocationReader;
+package pl.com.seremak.locationReader;
 
 import io.micronaut.core.util.StringUtils;
 import io.vavr.collection.Array;

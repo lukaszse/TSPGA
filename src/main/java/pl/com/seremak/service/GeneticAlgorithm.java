@@ -1,20 +1,23 @@
 package pl.com.seremak.service;
 
+import io.vavr.collection.Array;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import jakarta.inject.Singleton;
+
 import java.util.Timer;
 import java.util.TimerTask;
+
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import pl.com.seremak.LocationReader.LocationReader;
+import pl.com.seremak.fileWriter.ResultFileWriter;
+import pl.com.seremak.locationReader.LocationReader;
 import pl.com.seremak.model.InputParameters;
 import pl.com.seremak.model.Location;
 import pl.com.seremak.model.Population;
 import pl.com.seremak.model.Route;
 
-import java.time.Instant;
 import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
 
@@ -31,29 +34,27 @@ public class GeneticAlgorithm {
     private final Selection selection;
     private Population temp;
     private int elapsedTime = 2;
+    ResultFileWriter writer;
     private boolean run = true;
 
     public void run(final String inputFilePath) {
         setup(params);
         locations = Route.of(LocationReader.readLocation(inputFilePath));
         var population = Population.of(locations, params.getIndividualsNumber());
-        var lastPopulation = getLastPopulation(population, params.getDuration());
+        var lastPopulation = getLastPopulation(population);
         var shortestRoute = getShortestRoute(lastPopulation);
         log.info("Shortest route has length={}", shortestRoute.getRouteLength());
         log.info("Shortest route {}", shortestRoute.getLocations().map(Location::getLocation));
+        writer.writeResult(prepareResultString(shortestRoute));
     }
 
-    private Population getLastPopulation(final Population population, final int seconds) {
-        long startTime = Instant.now().toEpochMilli();
-        long epochEndTime = Instant.now().toEpochMilli() + TimeUnit.SECONDS.toMillis(seconds);;
+    private Population getLastPopulation(final Population population) {
         temp = population;
-        while(run) {
+        while (run) {
             temp = createNextGeneration(temp);
-            long duration = Instant.now().toEpochMilli() - startTime;
         }
         return temp;
     }
-
 
     private Population createNextGeneration(final Population population) {
         return Stream.of(population)
@@ -67,6 +68,7 @@ public class GeneticAlgorithm {
         interbreeding.setInterbreedingProbability(params.getInterbreedingProbability());
         mutation.setMutationProbability(params.getMutationProbability());
         selection.setEliteSelectionFactor(params.getEliteSelectionFactor());
+        writer = new ResultFileWriter(params.isTestMode());
         runScheduler(params.getDuration());
     }
 
@@ -99,19 +101,25 @@ public class GeneticAlgorithm {
             @Override
             public void run() {
                 run = false;
+                t.cancel();
             }
-        }, TimeUnit.SECONDS.toMillis(durationInSeconds), 1000);
+        }, TimeUnit.SECONDS.toMillis(durationInSeconds));
+    }
+
+    private List<String> prepareResultString(final Route route) {
+        return route.getLocations()
+                .map(Location::getLocation)
+                .map(Object::toString)
+                .collect(List.collector())
+                .prepend(route.getRouteLength().toString());
     }
 
     private void notifyAboutResults() {
         Comparator<Route> compareByLength = Comparator.comparing(Route::getRouteLength);
         var bestRouteLength = temp.getRoutes()
-            .minBy(compareByLength)
-            .get()
-            .getRouteLength();
-        var routes = temp.getRoutes()
-            .map(Route::getRouteLength)
-            .collect(List.collector());
+                .minBy(compareByLength)
+                .get()
+                .getRouteLength();
         log.info("Duration: {}. Best route: {}", elapsedTime += 2, bestRouteLength);
     }
 }

@@ -38,6 +38,9 @@ public class TSPGACommand implements Runnable {
     @Option(names = {"-e", "--eliteSelectionFactor"}, description = "Elite selection factor", defaultValue = "0.3")
     double eliteSelectionFactor;
 
+    @Option(names = {"-s", "--testMode"}, description = "Test mode", defaultValue = "false")
+    boolean testMode;
+
     public static void main(String[] args) throws Exception {
         PicocliRunner.run(TSPGACommand.class, args);
     }
@@ -50,6 +53,7 @@ public class TSPGACommand implements Runnable {
                         .interbreedingProbability(interbreedingProbability)
                         .mutationProbability(mutationProbability)
                         .eliteSelectionFactor(eliteSelectionFactor)
+                        .testMode(testMode)
                         .build());
         geneticAlgorithm.run(inputFilePath);
     }

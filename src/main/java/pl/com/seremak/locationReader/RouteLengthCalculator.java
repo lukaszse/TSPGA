@@ -1,8 +1,7 @@
-package pl.com.seremak.LocationReader;
+package pl.com.seremak.locationReader;
 
 import io.vavr.collection.Array;
 import pl.com.seremak.model.Location;
-import pl.com.seremak.model.Route;
 
 public class RouteLengthCalculator {
 
