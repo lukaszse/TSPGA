@@ -39,12 +39,12 @@ public class GeneticAlgorithm {
 
     public void run(final String inputFilePath) {
         setup(params);
+        initialInformation();
         locations = Route.of(LocationReader.readLocation(inputFilePath));
         var population = Population.of(locations, params.getIndividualsNumber());
         var lastPopulation = getLastPopulation(population);
         var shortestRoute = getShortestRoute(lastPopulation);
-        log.info("Shortest route has length={}", shortestRoute.getRouteLength());
-        log.info("Shortest route {}", shortestRoute.getLocations().map(Location::getLocation));
+        notifyAboutResults();
         writer.writeResult(prepareResultString(shortestRoute));
     }
 
@@ -121,5 +121,22 @@ public class GeneticAlgorithm {
                 .get()
                 .getRouteLength();
         log.info("Duration: {}. Best route: {}", elapsedTime += 2, bestRouteLength);
+    }
+
+    private void notifyAboutFinalResult(final Route shortestRoute) {
+        log.info("Shortest route has length={}", shortestRoute.getRouteLength());
+        log.info("Shortest route {}", shortestRoute.getLocations().map(Location::getLocation));
+    }
+
+    private void initialInformation() {
+        log.info("Algorithm started with parameters:");
+        log.info("Duration time = {}", params.getDuration());
+        log.info("Interbreeding probability = {}", params.getInterbreedingProbability());
+        log.info("Mutation probability = {}", params.getMutationProbability());
+        log.info("Elite selection factor = {}", params.getEliteSelectionFactor());
+        log.info("Numbers of individuals in population = {}", params.getIndividualsNumber());
+        if (getParams().isTestMode()) {
+            log.warn("WARNING! This is test mode. File will not be saved");
+        }
     }
 }
