@@ -5,7 +5,7 @@ import io.vavr.collection.Stream;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import pl.com.seremak.TSPGA.locationReader.RouteLengthCalculator;
+import pl.com.seremak.TSPGA.RouteLengthCalculator.RouteLengthCalculator;
 
 @Data
 @NoArgsConstructor

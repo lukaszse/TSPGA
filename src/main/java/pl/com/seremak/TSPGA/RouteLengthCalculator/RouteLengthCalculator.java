@@ -1,4 +1,4 @@
-package pl.com.seremak.TSPGA.locationReader;
+package pl.com.seremak.TSPGA.RouteLengthCalculator;
 
 import io.vavr.collection.Array;
 import pl.com.seremak.TSPGA.model.Location;
