@@ -1,4 +1,4 @@
-package pl.com.seremak.fileWriter;
+package pl.com.seremak.TSPGA.fileWriter;
 
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;

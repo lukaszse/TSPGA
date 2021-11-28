@@ -1,8 +1,8 @@
-package pl.com.seremak.locationReader;
+package pl.com.seremak.TSPGA.locationReader;
 
 import io.micronaut.core.util.StringUtils;
 import io.vavr.collection.Array;
-import pl.com.seremak.model.Location;
+import pl.com.seremak.TSPGA.model.Location;
 
 import java.nio.file.Paths;
 import java.util.Objects;

@@ -1,11 +1,10 @@
-package pl.com.seremak.service;
+package pl.com.seremak.TSPGA.service;
 
 import io.vavr.collection.Array;
-import io.vavr.collection.Stream;
 import jakarta.inject.Singleton;
 import lombok.Data;
-import pl.com.seremak.model.Population;
-import pl.com.seremak.model.Route;
+import pl.com.seremak.TSPGA.model.Population;
+import pl.com.seremak.TSPGA.model.Route;
 
 import java.util.Collections;
 import java.util.Random;

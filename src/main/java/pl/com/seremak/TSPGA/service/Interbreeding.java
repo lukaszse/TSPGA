@@ -1,4 +1,4 @@
-package pl.com.seremak.service;
+package pl.com.seremak.TSPGA.service;
 
 import io.vavr.Tuple;
 import io.vavr.Tuple2;
@@ -8,9 +8,9 @@ import io.vavr.collection.Stream;
 import jakarta.inject.Singleton;
 import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
-import pl.com.seremak.model.Location;
-import pl.com.seremak.model.Population;
-import pl.com.seremak.model.Route;
+import pl.com.seremak.TSPGA.model.Location;
+import pl.com.seremak.TSPGA.model.Population;
+import pl.com.seremak.TSPGA.model.Route;
 
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -63,7 +63,7 @@ public class Interbreeding {
     }
 
     private Route generateSingleChild(final Route parentRoute1, final Route parentRoute2) {
-        if (parentRoute1.getRouteLength() != parentRoute1.getRouteLength()) {
+        if (parentRoute1.getLocations().length() != (parentRoute2.getLocations().length())) {
             log.error(PARENTS_LENGTH_NOT_EQUAL);
         }
         var locationsNumber = parentRoute1.getLocations().length();

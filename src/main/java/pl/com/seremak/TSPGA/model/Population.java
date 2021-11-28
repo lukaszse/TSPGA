@@ -1,4 +1,4 @@
-package pl.com.seremak.model;
+package pl.com.seremak.TSPGA.model;
 
 import io.vavr.collection.Array;
 import io.vavr.collection.Stream;
