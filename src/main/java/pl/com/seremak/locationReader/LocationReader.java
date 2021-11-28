@@ -1,9 +1,7 @@
-package pl.com.seremak.LocationReader;
+package pl.com.seremak.locationReader;
 
 import io.micronaut.core.util.StringUtils;
 import io.vavr.collection.Array;
-import io.vavr.collection.List;
-import io.vavr.collection.Stream;
 import pl.com.seremak.model.Location;
 
 import java.nio.file.Paths;
@@ -14,7 +12,7 @@ import static java.lang.Integer.parseInt;
 
 public class LocationReader {
 
-    public static List<Location> readLocation(final String stringPath) {
+    public static Array<Location> readLocation(final String stringPath) {
         var path = Paths.get(stringPath);
         var lines = FileLineReader.readFile(path);
         return lines.map(LocationReader::mapLineToLocation)
@@ -22,7 +20,6 @@ public class LocationReader {
     }
 
     public static Location mapLineToLocation(final String stringLine) {
-
         return Optional.of(stringLine)
                 .filter(aStringLine -> stringLine.matches("\\s*\\d+\\s+\\d+\\s+\\d+"))
                 .map(aStringLine -> stringLine.split("\\s+"))
@@ -31,6 +28,5 @@ public class LocationReader {
                 .map(stringArray -> new Location(parseInt(stringArray.get(0)), parseInt(stringArray.get(1)), parseInt(stringArray.get(2))))
                 .orElse(null);
     }
-
 }
 
