@@ -16,7 +16,7 @@ import java.time.Instant;
 @Slf4j
 public class ResultFileWriter {
     public static final String DATE_PATTERN = "yyMMdd_HHmmss";
-    private static final String FILE_NAME_PATTERN = "SGA_result_%s.txt";
+    private static final String FILE_NAME_PATTERN = "GA_result_%s.txt";
     private final Path fileName;
     private final boolean testMode;
 

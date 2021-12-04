@@ -5,7 +5,7 @@ plugins {
 }
 
 version = "0.1"
-group = "pl.com.seremak"
+group = "pl.com.seremak.TSPGA"
 
 repositories {
     mavenCentral()
@@ -35,7 +35,7 @@ dependencies {
 
 
 application {
-    mainClass.set("pl.com.seremak.TSPGACommand")
+    mainClass.set("pl.com.seremak.TSPGA.TSPGACommand")
 }
 java {
     sourceCompatibility = JavaVersion.toVersion("15")
