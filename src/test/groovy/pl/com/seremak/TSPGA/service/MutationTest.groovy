@@ -1,8 +1,8 @@
-package pl.com.seremak.service
+package pl.com.seremak.TSPGA.service
 
 import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
-import pl.com.seremak.model.Population
+import pl.com.seremak.TSPGA.model.Population
 import spock.lang.Specification
 
 import static pl.com.seremak.TestData.prepareRoute1

@@ -1,9 +1,9 @@
 package pl.com.seremak
 
 import io.vavr.collection.Array
-import pl.com.seremak.model.InputParameters
-import pl.com.seremak.model.Location
-import pl.com.seremak.model.Route
+import pl.com.seremak.TSPGA.model.InputParameters
+import pl.com.seremak.TSPGA.model.Location
+import pl.com.seremak.TSPGA.model.Route
 
 import java.util.stream.Collectors
 import java.util.stream.IntStream

@@ -1,6 +1,5 @@
-package pl.com.seremak.service;
+package pl.com.seremak.TSPGA.service;
 
-import io.vavr.collection.Array;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import jakarta.inject.Singleton;
@@ -11,12 +10,12 @@ import java.util.TimerTask;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import pl.com.seremak.fileWriter.ResultFileWriter;
-import pl.com.seremak.locationReader.LocationReader;
-import pl.com.seremak.model.InputParameters;
-import pl.com.seremak.model.Location;
-import pl.com.seremak.model.Population;
-import pl.com.seremak.model.Route;
+import pl.com.seremak.TSPGA.fileWriter.ResultFileWriter;
+import pl.com.seremak.TSPGA.locationReader.LocationReader;
+import pl.com.seremak.TSPGA.model.InputParameters;
+import pl.com.seremak.TSPGA.model.Location;
+import pl.com.seremak.TSPGA.model.Population;
+import pl.com.seremak.TSPGA.model.Route;
 
 import java.util.Comparator;
 import java.util.concurrent.TimeUnit;
