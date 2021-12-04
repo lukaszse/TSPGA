@@ -1,4 +1,4 @@
-package pl.com.seremak.model;
+package pl.com.seremak.TSPGA.model;
 
 import lombok.Builder;
 import lombok.Data;

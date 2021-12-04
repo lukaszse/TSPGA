@@ -1,7 +1,7 @@
-package pl.com.seremak.locationReader;
+package pl.com.seremak.TSPGA.RouteLengthCalculator;
 
 import io.vavr.collection.Array;
-import pl.com.seremak.model.Location;
+import pl.com.seremak.TSPGA.model.Location;
 
 public class RouteLengthCalculator {
 

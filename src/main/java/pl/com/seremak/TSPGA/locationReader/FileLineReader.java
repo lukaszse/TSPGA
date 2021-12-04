@@ -1,4 +1,4 @@
-package pl.com.seremak.locationReader;
+package pl.com.seremak.TSPGA.locationReader;
 
 import io.vavr.collection.Array;
 import lombok.extern.slf4j.Slf4j;

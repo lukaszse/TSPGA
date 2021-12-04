@@ -1,17 +1,12 @@
-package pl.com.seremak;
+package pl.com.seremak.TSPGA;
 
 import io.micronaut.configuration.picocli.PicocliRunner;
-import io.micronaut.context.ApplicationContext;
 
 import jakarta.inject.Inject;
-import picocli.CommandLine;
 import picocli.CommandLine.Command;
-import picocli.CommandLine.MissingParameterException;
-import picocli.CommandLine.Model.ArgSpec;
 import picocli.CommandLine.Option;
-import picocli.CommandLine.Parameters;
-import pl.com.seremak.model.InputParameters;
-import pl.com.seremak.service.GeneticAlgorithm;
+import pl.com.seremak.TSPGA.model.InputParameters;
+import pl.com.seremak.TSPGA.service.GeneticAlgorithm;
 
 @Command(name = "TSPGA", description = "Traveling Salesman Problem Genetic Algorithm",
         mixinStandardHelpOptions = true)
