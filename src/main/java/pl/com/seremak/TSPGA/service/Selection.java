@@ -24,6 +24,9 @@ public class Selection {
         random = new Random();
     }
 
+    /**
+     * Elite selection
+     * */
     public Population selectNewPopulation(final Population population) {
         var routes = population.getRoutes();
         var elite = getElite(routes);

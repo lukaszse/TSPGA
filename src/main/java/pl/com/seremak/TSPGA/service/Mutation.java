@@ -20,6 +20,9 @@ public class Mutation {
         this.random = new Random();
     }
 
+    /**
+     * Inversion mutation
+     * */
     public Population performMutation(final Population population) {
         var mutatedRoutes = population
                 .getRoutes()
@@ -31,12 +34,12 @@ public class Mutation {
     private Route mutateRoute(final Route route) {
         var mutatedRoute = new Route(route);
         for (int i = 0; i < route.getLocations().length(); i++) {
-            mutatedRoute = swapDrawnLocation(i, mutatedRoute);
+            mutatedRoute = swapDrawnLocationIfDrawn(i, mutatedRoute);
         }
         return mutatedRoute;
     }
 
-    private Route swapDrawnLocation(final int index, final Route route) {
+    private Route swapDrawnLocationIfDrawn(final int index, final Route route) {
         return drawnToMutation() ?
                 swapLocation(index, route) :
                 route;

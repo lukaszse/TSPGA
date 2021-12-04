@@ -29,6 +29,9 @@ public class Interbreeding {
         random = new Random();
     }
 
+    /**
+     * Interbreeding operator -  OX, Davis, 1985
+     * */
     public Population performInterbreeding(final Population population) {
         parentPopulation = Array.ofAll(population.getRoutes());
         Array<Route> childPopulation = Array.empty();
@@ -62,6 +65,9 @@ public class Interbreeding {
         return Tuple.of(generateSingleChild(drawnPair._1, drawnPair._2), generateSingleChild(drawnPair._2, drawnPair._1));
     }
 
+    /**
+     * Interbreeding operator -  OX, Davis, 1985
+     **/
     private Route generateSingleChild(final Route parentRoute1, final Route parentRoute2) {
         if (parentRoute1.getLocations().length() != (parentRoute2.getLocations().length())) {
             log.error(PARENTS_LENGTH_NOT_EQUAL);
@@ -117,11 +123,8 @@ public class Interbreeding {
         return random.nextFloat() <= interbreedingProbability;
     }
 
-    private int drawCuttingPoint() {
-        return random.nextInt(7) + 1;
-    }
-
     private int drawIndex() {
         return random.nextInt(parentPopulation.length());
     }
 }
+
