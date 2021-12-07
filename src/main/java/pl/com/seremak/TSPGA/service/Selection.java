@@ -8,7 +8,6 @@ import lombok.extern.slf4j.Slf4j;
 import pl.com.seremak.TSPGA.model.Population;
 import pl.com.seremak.TSPGA.model.Route;
 
-import java.util.Comparator;
 import java.util.Random;
 
 @Singleton
@@ -35,10 +34,9 @@ public class Selection {
     }
 
     private Array<Route> getElite(final Array<Route> routes) {
-        Comparator<Route> compareByLength = Comparator.comparing(Route::getRouteLength);
         int eliteSize = (int) (routes.length() * eliteSelectionFactor);
         return routes
-                .sorted(compareByLength)
+                .sorted()
                 .take(eliteSize);
     }
 

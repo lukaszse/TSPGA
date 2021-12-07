@@ -3,10 +3,6 @@ package pl.com.seremak.TSPGA.service;
 import io.vavr.collection.List;
 import io.vavr.collection.Stream;
 import jakarta.inject.Singleton;
-
-import java.util.Timer;
-import java.util.TimerTask;
-
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -17,7 +13,8 @@ import pl.com.seremak.TSPGA.model.Location;
 import pl.com.seremak.TSPGA.model.Population;
 import pl.com.seremak.TSPGA.model.Route;
 
-import java.util.Comparator;
+import java.util.Timer;
+import java.util.TimerTask;
 import java.util.concurrent.TimeUnit;
 
 @Singleton
@@ -72,9 +69,8 @@ public class GeneticAlgorithm {
     }
 
     private Route getShortestRoute(final Population population) {
-        Comparator<Route> compareByLength = Comparator.comparing(Route::getRouteLength);
         return population.getRoutes()
-                .minBy(compareByLength)
+                .min()
                 .get();
     }
 
@@ -114,9 +110,8 @@ public class GeneticAlgorithm {
     }
 
     private void notifyAboutResults() {
-        Comparator<Route> compareByLength = Comparator.comparing(Route::getRouteLength);
         var bestRouteLength = temp.getRoutes()
-                .minBy(compareByLength)
+                .min()
                 .get()
                 .getRouteLength();
         log.info("Duration: {}. Best route: {}", elapsedTime += 2, bestRouteLength);

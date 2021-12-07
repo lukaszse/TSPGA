@@ -33,7 +33,7 @@ class GeneticAlgorithmTest extends Specification {
 
         then:
         children instanceof Population
-        def shortestRouteLength = children.getRoutes().minBy(Comparator.comparing(Route::getRouteLength)).get().getRouteLength()
+        def shortestRouteLength = children.getRoutes().min().get().getRouteLength()
         shortestRouteLength == expectedRouteLength
         log.info("Best result length= {}", shortestRouteLength)
         log.info("Best result = {}", children.getRoutes()

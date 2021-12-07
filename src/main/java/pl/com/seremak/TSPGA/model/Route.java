@@ -10,7 +10,7 @@ import pl.com.seremak.TSPGA.RouteLengthCalculator.RouteLengthCalculator;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Route {
+public class Route implements Comparable<Route> {
 
     private Array<Location> locations;
     private Integer routeLength;
@@ -29,5 +29,10 @@ public class Route {
     public Route(final Route route) {
         this.locations = route.locations;
         this.routeLength = route.routeLength;
+    }
+
+    @Override
+    public int compareTo(Route o) {
+        return this.routeLength.compareTo(o.getRouteLength());
     }
 }
