@@ -29,22 +29,33 @@ public class GeneticAlgorithm {
     private final Mutation mutation;
     private final Selection selection;
     private Population temp;
-    private int elapsedTime = 2;
+    private int elapsedTime;
     ResultFileWriter writer;
     private boolean run = true;
 
-    public void run(final String inputFilePath) {
+    public void run() {
         setup(params);
         initialInformation();
-        locations = Route.of(LocationReader.readLocation(inputFilePath));
+        locations = Route.of(LocationReader.readLocation(params.getInputFilePath()));
+
+        Stream.rangeClosed(1, params.getRunNumber())
+                .map(this::singleRun)
+                .map(this::prepareResultString)
+                .forEach(stringResult -> writer.writeResult(stringResult));
+    }
+
+    public Route singleRun(final int runNumner) {
+        log.info("Starting run no.: {}", runNumner);
         var population = Population.of(locations, params.getIndividualsNumber());
         var lastPopulation = getLastPopulation(population);
         var shortestRoute = getShortestRoute(lastPopulation);
-        notifyAboutResults();
-        writer.writeResult(prepareResultString(shortestRoute));
+        notifyAboutFinalResult(shortestRoute);
+        return shortestRoute;
     }
 
     private Population getLastPopulation(final Population population) {
+        run = true;
+        runScheduler(params.getDuration());
         temp = population;
         while (run) {
             temp = createNextGeneration(temp);
@@ -64,23 +75,13 @@ public class GeneticAlgorithm {
         interbreeding.setInterbreedingProbability(params.getInterbreedingProbability());
         mutation.setMutationProbability(params.getMutationProbability());
         selection.setEliteSelectionFactor(params.getEliteSelectionFactor());
-        writer = new ResultFileWriter(params.isTestMode());
-        runScheduler(params.getDuration());
+        writer = new ResultFileWriter(params.isTestMode(), params.getInputFilePath());
     }
 
     private Route getShortestRoute(final Population population) {
         return population.getRoutes()
                 .min()
                 .get();
-    }
-
-    private void startNotification(final InputParameters params) {
-        log.info("Algorithm started with following params:");
-        log.info("Duration time = {}", params.getDuration());
-        log.info("Individuals number = {}", params.getIndividualsNumber());
-        log.info("Interbreeding probability = {}", params.getInterbreedingProbability());
-        log.info("Mutation probability = {}", params.getMutationProbability());
-        log.info("Elite selection factor = {}", params.getEliteSelectionFactor());
     }
 
     private void runScheduler(final int durationInSeconds) {
@@ -90,8 +91,8 @@ public class GeneticAlgorithm {
             public void run() {
                 notifyAboutResults();
             }
-        }, 2000, 2000);
-
+        }, 0, 1000);
+        elapsedTime = 0;
         t.schedule(new TimerTask() {
             @Override
             public void run() {
@@ -114,7 +115,7 @@ public class GeneticAlgorithm {
                 .min()
                 .get()
                 .getRouteLength();
-        log.info("Duration: {}. Best route: {}", elapsedTime += 2, bestRouteLength);
+        log.info("Duration: {}. Best route: {}", elapsedTime += 1, bestRouteLength);
     }
 
     private void notifyAboutFinalResult(final Route shortestRoute) {
@@ -125,6 +126,7 @@ public class GeneticAlgorithm {
     private void initialInformation() {
         log.info("Algorithm started with parameters:");
         log.info("Duration time = {}", params.getDuration());
+        log.info("Number of runs = {}", params.getRunNumber());
         log.info("Interbreeding probability = {}", params.getInterbreedingProbability());
         log.info("Mutation probability = {}", params.getMutationProbability());
         log.info("Elite selection factor = {}", params.getEliteSelectionFactor());

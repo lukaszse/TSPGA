@@ -13,4 +13,6 @@ public class InputParameters {
     private final double mutationProbability;
     private final double eliteSelectionFactor;
     private final boolean testMode;
+    private final int runNumber;
+    private final String inputFilePath;
 }
