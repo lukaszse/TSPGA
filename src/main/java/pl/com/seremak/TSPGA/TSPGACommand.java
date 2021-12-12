@@ -36,6 +36,9 @@ public class TSPGACommand implements Runnable {
     @Option(names = {"-s", "--testMode"}, description = "Test mode", defaultValue = "false")
     boolean testMode;
 
+    @Option(names = {"-r", "--runNumber"}, description = "Test mode", defaultValue = "10")
+    int runNumber;
+
     public static void main(String[] args) throws Exception {
         PicocliRunner.run(TSPGACommand.class, args);
     }
@@ -49,7 +52,9 @@ public class TSPGACommand implements Runnable {
                         .mutationProbability(mutationProbability)
                         .eliteSelectionFactor(eliteSelectionFactor)
                         .testMode(testMode)
+                        .runNumber(runNumber)
+                        .inputFilePath(inputFilePath)
                         .build());
-        geneticAlgorithm.run(inputFilePath);
+        geneticAlgorithm.run();
     }
 }
