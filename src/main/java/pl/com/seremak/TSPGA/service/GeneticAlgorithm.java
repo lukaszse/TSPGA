@@ -107,7 +107,7 @@ public class GeneticAlgorithm {
                 .map(Location::getLocation)
                 .map(Object::toString)
                 .collect(List.collector())
-                .prepend(route.getRouteLength().toString());
+                .append(route.getRouteLength().toString());
     }
 
     private void notifyAboutResults() {
